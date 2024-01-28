@@ -12,6 +12,7 @@ const ImageRouter = require('./routes/image.routes');
 
 
 const cors = require('cors');
+// cors({ credentials: true, origin: true });
 const ConnectDB = require('./database');
 const session = require('express-session');
 
@@ -19,7 +20,9 @@ const session = require('express-session');
 const crypto = require('crypto');
 const { mongo, default: mongoose } = require('mongoose');
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: "*"
+}));
 
 
 
@@ -91,6 +94,15 @@ app.use('/api/v1/blog/tags', TagRoutes);
 app.use('/api/v1/blog/images', ImageRouter);
 
 
+
+// app.options('https://siddhi-blog.vercel.app/', function (req, res, next) {
+//     res.header('Access-Control-Allow-Origin', "*");
+//     res.header('Access-Control-Allow-Methods', 'POST');
+//     res.header('Access-Control-Allow-Methods', 'GET');
+//     res.header("Access-Control-Allow-Headers", "accept, content-type");
+//     res.header("Access-Control-Max-Age", "1728000");
+//     return res.sendStatus(200);
+// });
 
 
 
