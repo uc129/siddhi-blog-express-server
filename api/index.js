@@ -76,6 +76,7 @@ app.get('/', (req, res) => {
         env: process.env.NODE_ENV,
         mongoose: mongoose.connection.readyState
     })
+    res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 })
 
 app.get('/session', (req, res) => {
@@ -104,4 +105,6 @@ httpsServer.listen(8443, () => {
     ConnectDB();
     console.log("server running at https://IP_ADDRESS:8443/ \n https://localhost:8443 \n Production Mode")
 });
+
+module.exports = app;
 
