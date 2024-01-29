@@ -2,6 +2,18 @@ const express = require('express');
 const env = require('dotenv');
 env.config();
 
+var fs = require('fs');
+// var http = require('http');
+var https = require('https');
+var path = require('path');
+const credentials = {
+    key: fs.readFileSync(path.join(__dirname, "../sslcert/server-key.pem")),
+    cert: fs.readFileSync(path.join(__dirname, "../sslcert/server.pem")),
+};
+
+
+console.log(credentials);
+
 const CategoryRouter = require('./routes/category.routes');
 const PostRoutes = require('./routes/post.routes');
 const UserRoutes = require('./routes/user.routes');
@@ -77,8 +89,19 @@ app.use('/api/v1/auth', AuthRoutes);
 app.use('/api/v1/blog/tags', TagRoutes);
 app.use('/api/v1/blog/images', ImageRouter);
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-    console.log("http://localhost:" + port);
-    ConnectDB()
-})
+
+
+
+// var httpServer = http.createServer(app);
+var httpsServer = https.createServer(credentials, app);
+
+// httpServer.listen(8080, () => {
+//     ConnectDB();
+//     console.log("server running at http://IP_ADDRESS:8080/ \n http://localhost:8080 \n Development Mode");
+// });
+
+httpsServer.listen(8443, () => {
+    ConnectDB();
+    console.log("server running at https://IP_ADDRESS:8443/ \n https://localhost:8443 \n Production Mode")
+});
+
