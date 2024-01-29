@@ -14,15 +14,15 @@ const credentials = {
 
 console.log(credentials);
 
-const CategoryRouter = require('./routes/category.routes');
-const PostRoutes = require('./routes/post.routes');
-const UserRoutes = require('./routes/user.routes');
-const TagRoutes = require('./routes/tag.routes');
-const AuthRoutes = require('./auth/auth.routes');
-const ImageRouter = require('./routes/image.routes');
+const CategoryRouter = require('../src/routes/category.routes');
+const PostRoutes = require('../src/routes/post.routes');
+const UserRoutes = require('../src/routes/user.routes');
+const TagRoutes = require('../src/routes/tag.routes');
+const AuthRoutes = require('../src/auth/auth.routes');
+const ImageRouter = require('../src/routes/image.routes');
 
 const cors = require('cors');
-const ConnectDB = require('./database');
+const ConnectDB = require('../src/database');
 const session = require('express-session');
 
 const crypto = require('crypto');
